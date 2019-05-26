@@ -1,0 +1,25 @@
+{
+  "name": "tennis-tracker",
+  "version": "0.1.0",
+  "private": true,
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "@fitbit/sdk": "~3.1.1",
+    "@fitbit/sdk-cli": "^1.6.0"
+  },
+  "fitbit": {
+    "appUUID": "f979b0db-a03f-4c5a-8cb7-358577c965ec",
+    "appType": "app",
+    "appDisplayName": "Tennis Tracker",
+    "iconFile": "resources/icon.png",
+    "wipeColor": "#ffffff",
+    "requestedPermissions": [],
+    "buildTargets": [],
+    "i18n": {},
+    "defaultLanguage": "en-US"
+  },
+  "scripts": {
+    "build": "fitbit-build",
+    "debug": "fitbit"
+  }
+}
