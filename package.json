@@ -15,8 +15,7 @@
     "wipeColor": "#ffffff",
     "requestedPermissions": [],
     "buildTargets": [
-      "meson",
-      "higgs"
+      "meson"
     ],
     "i18n": {},
     "defaultLanguage": "en-US"

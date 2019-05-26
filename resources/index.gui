@@ -1,7 +1,58 @@
 <svg>
   <use id="app-container" href="#panoramaview">
-    <use id="game-view" href="#panoramaview-item">
-      <rect width="100%" height="100%" fill="black" />
+    <use id="game-view" href="#panoramaview-item" width="100%" height="95%">
+      <!-- Top Bar -->
+      <rect x="0" y="0" width="100%" height="10%" fill="fb-black">
+        <rect x="0" width="100%">
+          <!-- Set No -->
+          <text x="20" y="22"
+            font-family="Seville-Bold" fill="fb-white"
+            font-size="30" font-weight="bold"
+            text-anchor="start">
+            Set 1
+          </text>
+          <!-- Game Score -->
+          <text x="180" y="22"
+            font-family="Seville-Bold" fill="fb-green"
+            font-size="30" font-weight="bold"
+            text-anchor="start">
+            5
+          </text>
+          <text x="240" y="22"
+            font-family="Seville-Bold" fill="fb-white"
+            font-size="30" font-weight="bold"
+            text-anchor="end">
+            -
+          </text>
+          <text x="290" y="22"
+            font-family="Seville-Bold" fill="fb-yellow"
+            font-size="30" font-weight="bold"
+            text-anchor="end">
+            3
+          </text>
+        </rect>
+      </rect>
+      <!-- Main Screen -->
+      <rect x="0" y="10%" width="100%" height="80%" fill="fb-black">
+        <rect x="5%" y="12%" width="50%" height="70%">
+          <text x="25%" y="60%"
+            font-family="Seville-Bold" fill="fb-green"
+            font-size="100" font-weight="bold"
+            text-anchor="middle">
+            40
+          </text>
+        </rect>
+        <rect x="50%" y="12%" width="50%" height="70%">
+          <text x="75%" y="60%"
+            font-family="Seville-Bold" fill="fb-yellow"
+            font-size="100" font-weight="bold"
+            text-anchor="middle">
+            15
+          </text>
+        </rect>
+      </rect>
+      <!-- Bottom Bar -->
+      <rect x="0" y="90%" width="100%" height="10%" fill="fb-yellow" />
     </use>
     <use id="stats-view" href="#panoramaview-item">
       <rect width="100%" height="100%" fill="grey" />
