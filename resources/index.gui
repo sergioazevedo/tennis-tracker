@@ -27,7 +27,7 @@
       <svg class="main">
         <!-- My Score -->
         <svg class="column">
-          <rect id="my-score" class="score-button">
+          <rect id="my-score" class="score-button" pointer-events="visible">
             <text id="game-my-score" class="score-text green">
               40
             </text>

@@ -1,10 +1,11 @@
 import document from "document";
 
 export default class GameUI {
-  constructor(gameData) {
-    this.gameData = gameData;
+  constructor(game) {
+    this.game = game;
     this.bindComponents();
-    this.updateComponents();
+    this.bindEvents();
+    this.updateView();
   }
 
   bindComponents() {
@@ -14,18 +15,32 @@ export default class GameUI {
       setOpScore: document.getElementById("set-op-score"),
       gameMyScore: document.getElementById("game-my-score"),
       gameOpScore: document.getElementById("game-op-score"),
+      myScoreButton: document.getElementById("my-score"),
+      opScoreButton: document.getElementById("op-score"),
     }
   }
 
-  updateComponents(){
-    this.components.currentSet.text = 'Set ' + this.gameData.currentSet;
-    this.components.setMyScore.text = this.gameData.setScore.me;
-    this.components.setOpScore.text = this.gameData.setScore.op;
-    this.components.gameMyScore.text = this.gameData.gameScore.me;
-    this.components.gameOpScore.text = this.gameData.gameScore.op;
+  bindEvents() {
+    this.components.myScoreButton.onclick = () => {
+      this.game.pointForMe();
+      this.updateView();
+    }
+
+    this.components.opScoreButton.onclick = () => {
+      this.game.pointForOp();
+      this.updateView();
+    }
+  }
+
+  updateView(){
+    this.components.currentSet.text = 'Set ' + this.game.data.currentSet;
+    this.components.setMyScore.text = this.game.data.gameScore.me;
+    this.components.setOpScore.text = this.game.data.gameScore.op;
+    this.components.gameMyScore.text = this.game.data.pointScore.me;
+    this.components.gameOpScore.text = this.game.data.pointScore.op;
   }
 
   printGameData() {
-    console.log(JSON.stringify(this.gameData));
+    console.log(JSON.stringify(this.game));
   }
 }
