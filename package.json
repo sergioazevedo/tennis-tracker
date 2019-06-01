@@ -5,7 +5,10 @@
   "license": "UNLICENSED",
   "devDependencies": {
     "@fitbit/sdk": "~3.1.1",
-    "@fitbit/sdk-cli": "^1.6.0"
+    "@fitbit/sdk-cli": "^1.6.0",
+    "@types/jest": "^24.0.13",
+    "jest": "^24.8.0",
+    "ts-jest": "^24.0.2"
   },
   "fitbit": {
     "appUUID": "f979b0db-a03f-4c5a-8cb7-358577c965ec",
@@ -21,7 +24,9 @@
     "defaultLanguage": "en-US"
   },
   "scripts": {
+    "test": "jest",
     "build": "fitbit-build",
     "debug": "fitbit"
-  }
+  },
+  "dependencies": {}
 }
