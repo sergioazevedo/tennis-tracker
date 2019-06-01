@@ -1,35 +1,39 @@
-const BASE_GAME_DATA = {
-  currentSet: 1,
-  currentGame: 1,
-  gameScore: {
-    me: 0,
-    op: 0,
-  },
-  pointScore: {
-    me: 0,
-    op: 0,
-  }
-};
 
-export default class Game {
+export default class Match {
+  BASE_GAME_DATA = {
+    currentSet: 1,
+    currentGame: 1,
+    gameScore: {
+      me: 0,
+      op: 0,
+    },
+    pointScore: {
+      me: 0,
+      op: 0,
+    }
+  };
 
-  constructor(receivedGameData) {
-    if (receivedGameData != null) {
+  constructor(receivedMatchData) {
+    if (receivedMatchData != null) {
       this.data = Object.assign(
         {},
-        BASE_GAME_DATA,
-        receivedGameData,
+        this.BASE_GAME_DATA,
+        receivedMatchData
       );
     } else {
       this.data = Object.assign(
         {},
-        BASE_GAME_DATA
+        this.BASE_GAME_DATA
       );
     }
   }
 
   get toObject() {
     return this.data;
+  }
+
+  get gameScore() {
+    return this.data.gameScore;
   }
 
   get pointScore() {
@@ -76,14 +80,25 @@ export default class Game {
         if (this.isDeuce) {
           this._advantageFor(who);
         } else {
-          this.gameForMe();
+          this._gameFor(who);
         }
         break;
+      case 'AD':
+        this._gameFor(who);
+        break;
       default:
-        //advantage was lost
-        this.data.pointScore[who] = 40;
+        //advantage was lost (deuce)
+        this.data.pointScore.me = 40;
         this.data.pointScore.op = 40;
     }
+  }
+
+  _gameFor(who) {
+    this.data.gameScore[who] += 1;
+    //new game
+    this.data.currentGame += 1;
+    this.data.pointScore.me = 0;
+    this.data.pointScore.op = 0;
   }
 
   get gamesPlayed() {
@@ -98,26 +113,4 @@ export default class Game {
     const gamesDiff = this.data.gameScore.me - this.data.gameScore.op
     return Math.abs(gamesDiff) >= 1 && this.gamesPlayed >= 5;
   }
-
-  gameForMe() {
-    if ( this.isSetFinished ) {
-      this.data.currentSet += 1
-      this.data.gameScore.me = 0;
-      this.data.gameScore.op = 0;
-      this.data.currentGame = 1;
-    } else {
-      this.data.gameScore.me += 1;
-      this.data.currentGame += 1;
-    }
-    this.data.pointScore.me = 0;
-    this.data.pointScore.op = 0;
-  }
-
-  gameForOp() {
-    this.data.gameScore.op += 1;
-    this.data.currentGame += 1;
-    this.data.pointScore.me = 0;
-    this.data.pointScore.op = 0;
-  }
-
 }

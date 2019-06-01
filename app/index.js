@@ -1,9 +1,9 @@
 // import document from "document";
 import GameUI from './game-ui';
-import Game from './game';
+import Match from './match';
 
-const currentGame = new Game();
-const gameUI = new GameUI(currentGame);
+const currentMatch = new Match();
+const gameUI = new GameUI(currentMatch);
 
 gameUI.printGameData();
 // let container = document.getElementById("game-container");
