@@ -32,7 +32,7 @@ export default class GameUI {
     }
   }
 
-  updateView(){
+  updateView() {
     this.components.currentSet.text = 'Set ' + this.game.data.currentSet;
     this.components.setMyScore.text = this.game.data.gameScore.me;
     this.components.setOpScore.text = this.game.data.gameScore.op;

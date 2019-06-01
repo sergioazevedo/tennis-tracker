@@ -1,87 +1,123 @@
+const BASE_GAME_DATA = {
+  currentSet: 1,
+  currentGame: 1,
+  gameScore: {
+    me: 0,
+    op: 0,
+  },
+  pointScore: {
+    me: 0,
+    op: 0,
+  }
+};
 
 export default class Game {
 
-  constructor(data) {
-    if (data != null) {
-      this.gameData = data;
+  constructor(receivedGameData) {
+    if (receivedGameData != null) {
+      this.data = Object.assign(
+        {},
+        BASE_GAME_DATA,
+        receivedGameData,
+      );
     } else {
-      this.gameData = {
-        currentSet: 1,
-        currentGame: 1,
-        gameScore: {
-          me: 0,
-          op: 0,
-        },
-        pointScore: {
-          me: 0,
-          op: 0,
-        }
-      };
+      this.data = Object.assign(
+        {},
+        BASE_GAME_DATA
+      );
     }
   }
 
-  get data() {
-    return this.gameData;
+  get toObject() {
+    return this.data;
+  }
+
+  get pointScore() {
+    return this.data.pointScore;
   }
 
   pointForMe() {
-    switch (this.gameData.pointScore.me) {
+    this._pointFor('me');
+  }
+
+  pointAgainstMe() {
+    this._pointFor('op');
+  }
+
+  get isDeuce() {
+    return (
+      this.pointScore.me === 40 &&
+      this.pointScore.op === 40
+    )
+  }
+
+  inverseOf(who) {
+    return (who === 'me') ? 'op' : 'me';
+  }
+
+  _advantageFor(who) {
+    const other = this.inverseOf(who);
+    this.data.pointScore[who] = 'AD';
+    this.data.pointScore[other] = '';
+  }
+
+  _pointFor(who) {
+    switch (this.data.pointScore[who]) {
       case 0:
-        this.gameData.pointScore.me = 15;
+        this.data.pointScore[who] = 15;
         break;
       case 15:
-        this.gameData.pointScore.me = 30;
+        this.data.pointScore[who] = 30;
         break;
       case 30:
-        this.gameData.pointScore.me = 40;
+        this.data.pointScore[who] = 40;
         break;
       case 40:
-        if (this.gameData.pointScore.op === 40) {
-          this.gameData.pointScore.me = "AD";
-          this.gameData.pointScore.op = "";
+        if (this.isDeuce) {
+          this._advantageFor(who);
         } else {
           this.gameForMe();
         }
         break;
       default:
         //advantage was lost
-        this.gameData.pointScore.me = 40;
-        this.gameData.pointScore.op = 40;
+        this.data.pointScore[who] = 40;
+        this.data.pointScore.op = 40;
     }
   }
 
   get gamesPlayed() {
-    return this.gameData.gameScore.me + this.gameData.gameScore.op;
+    return this.data.gameScore.me + this.data.gameScore.op;
   }
 
   get isTieBreak() {
-    return this.gameData.gameScore.me == 6 && this.gameData.gameScore.op == 6;
+    return this.data.gameScore.me == 6 && this.data.gameScore.op == 6;
   }
 
   get isSetFinished() {
-    const gamesDiff = this.gameData.gameScore.me - this.gameData.gameScore.op
+    const gamesDiff = this.data.gameScore.me - this.data.gameScore.op
     return Math.abs(gamesDiff) >= 1 && this.gamesPlayed >= 5;
   }
 
   gameForMe() {
     if ( this.isSetFinished ) {
-      this.gameData.currentSet += 1
-      this.gameData.gameScore.me = 0;
-      this.gameData.gameScore.op = 0;
-      this.gameData.currentGame = 1;
+      this.data.currentSet += 1
+      this.data.gameScore.me = 0;
+      this.data.gameScore.op = 0;
+      this.data.currentGame = 1;
     } else {
-      this.gameData.gameScore.me += 1;
-      this.gameData.currentGame += 1;
+      this.data.gameScore.me += 1;
+      this.data.currentGame += 1;
     }
-    this.gameData.pointScore.me = 0;
-    this.gameData.pointScore.op = 0;
+    this.data.pointScore.me = 0;
+    this.data.pointScore.op = 0;
   }
 
   gameForOp() {
-    this.gameData.gameScore.op += 1;
-    this.gameData.currentGame += 1;
-    this.gameData.pointScore.me = 0;
-    this.gameData.pointScore.op = 0;
+    this.data.gameScore.op += 1;
+    this.data.currentGame += 1;
+    this.data.pointScore.me = 0;
+    this.data.pointScore.op = 0;
   }
 
 }
