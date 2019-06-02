@@ -38,9 +38,16 @@ export default class Match {
     return this.data.gameScore.me == 6 && this.data.gameScore.op == 6;
   }
 
+  //the match is over?
+  get isOver() {
+    const diff = Math.abs(this.data.setScore.me - this.data.setScore.op);
+    return diff == 2;
+  }
+
   //tennis set not property set :)
   get currentSet() {
-    return (this.data.setScore.me + this.data.setScore.op) + 1;
+    const currentSet = this.data.setScore.me + this.data.setScore.op;
+    return this.isOver ? currentSet : currentSet + 1;
   }
 
   get setScore() {
