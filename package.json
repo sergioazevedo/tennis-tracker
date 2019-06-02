@@ -28,5 +28,7 @@
     "build": "fitbit-build",
     "debug": "fitbit"
   },
-  "dependencies": {}
+  "dependencies": {
+    "object-assign": "^4.1.1"
+  }
 }

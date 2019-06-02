@@ -1,3 +1,4 @@
+import objectAssign from './object-assign'
 
 export default class Match {
   BASE_GAME_DATA = {
@@ -17,13 +18,13 @@ export default class Match {
 
   constructor(receivedMatchData) {
     if (receivedMatchData != null) {
-      this.data = Object.assign(
+      this.data = objectAssign(
         {},
         this.BASE_GAME_DATA,
         receivedMatchData
-      );
+      )
     } else {
-      this.data = Object.assign(
+      this.data = objectAssign(
         {},
         this.BASE_GAME_DATA
       );

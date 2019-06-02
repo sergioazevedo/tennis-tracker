@@ -4,8 +4,9 @@ import Match from './match';
 
 const currentMatch = new Match();
 const gameUI = new GameUI(currentMatch);
+gameUI.updateView();
 
-gameUI.printGameData();
+// gameUI.printGameData();
 // let container = document.getElementById("game-container");
 // // Get the selected index
 // let currentIndex = container.value;
