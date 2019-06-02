@@ -13,7 +13,7 @@ describe('Match', () => {
   });
 
   describe('Scoring Points during a Game', () => {
-    it('my points score should progres from 0, 15, 30, 40', () => {
+    it('my points score should progress from 0, 15, 30, 40', () => {
       let match = givenAMatch();
       [0,15,30,40].map((value) => {
         expect(match.pointScore.me).toEqual(value);
@@ -21,7 +21,7 @@ describe('Match', () => {
       });
     });
 
-    it('my opponent points score should progres from 0, 15, 30, 40', () => {
+    it('my opponent points score should progress from 0, 15, 30, 40', () => {
       let match = givenAMatch();
       [0, 15, 30, 40].map((value) => {
         expect(match.pointScore.op).toEqual(value);
@@ -182,7 +182,32 @@ describe('Match', () => {
   });
 
   describe('Tie-break Scenarios', () => {
+    describe('Scoring Points during Tie-break', () => {
+      let match = givenAMatch({
+        gameScore: { me: 6, op: 6 }
+      });
 
+      it('my points score should progress from 0,1,2,3...', () => {
+        [0, 1, 2, 3, 4, 5, 6, 7].map((value) => {
+          expect(match.pointScore.me).toEqual(value);
+          match.pointForMe();
+        });
+      });
+
+      it('my opponent points score should progress from 0,1,2,3...', () => {
+        [0, 1, 2, 3, 4, 5, 6, 7].map((value) => {
+          expect(match.pointScore.op).toEqual(value);
+          match.pointAgainstMe();
+        });
+      });
+    });
+
+    describe('Winning the Tie-break', () => {
+      let match = givenAMatch({
+        gameScore: { me: 6, op: 6 }
+      });
+
+    });
   });
 
 

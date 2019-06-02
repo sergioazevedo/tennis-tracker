@@ -56,11 +56,11 @@ export default class Match {
   }
 
   pointForMe() {
-    this._pointFor('me');
+    this.isTieBreak ? this._tieBreakPointFor('me') : this._pointFor('me');
   }
 
   pointAgainstMe() {
-    this._pointFor('op');
+    this.isTieBreak ? this._tieBreakPointFor('op') : this._pointFor('op');
   }
 
   get isDeuce() {
@@ -78,6 +78,10 @@ export default class Match {
     const other = this.inverseOf(who);
     this.data.pointScore[who] = 'AD';
     this.data.pointScore[other] = '';
+  }
+
+  _tieBreakPointFor(who) {
+    this.data.pointScore[who] += 1;
   }
 
   _pointFor(who) {
