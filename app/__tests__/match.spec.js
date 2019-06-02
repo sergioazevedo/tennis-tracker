@@ -183,30 +183,57 @@ describe('Match', () => {
 
   describe('Tie-break Scenarios', () => {
     describe('Scoring Points during Tie-break', () => {
-      let match = givenAMatch({
-        gameScore: { me: 6, op: 6 }
-      });
-
-      it('my points score should progress from 0,1,2,3...', () => {
-        [0, 1, 2, 3, 4, 5, 6, 7].map((value) => {
+      it('wmy points score should progress from 0,1,2,3...', () => {
+        const match = givenAMatch({
+          gameScore: { me: 6, op: 6 }
+        });
+        [0, 1, 2, 3, 4, 5, 6].map((value) => {
           expect(match.pointScore.me).toEqual(value);
           match.pointForMe();
         });
       });
 
       it('my opponent points score should progress from 0,1,2,3...', () => {
-        [0, 1, 2, 3, 4, 5, 6, 7].map((value) => {
+        const match = givenAMatch({
+          gameScore: { me: 6, op: 6 }
+        });
+        [0, 1, 2, 3, 4, 5, 6].map((value) => {
           expect(match.pointScore.op).toEqual(value);
           match.pointAgainstMe();
         });
       });
     });
 
-    describe('Winning the Tie-break', () => {
-      let match = givenAMatch({
-        gameScore: { me: 6, op: 6 }
-      });
+    describe('Winning the Tie-break Scenario', () => {
+      describe('Given tie-break score is 6 - 5 for me. when I score a point. Then:', () => {
+        let match = givenAMatch({
+          gameScore: { me: 6, op: 6 },
+          pointScore: { me: 6, op: 5 }
+        });
+        match.pointForMe();
 
+        it('Set score should display that I won the last SET', () => {
+          expect(match.setScore).toEqual({
+            me: 1,
+            op: 0
+          });
+        });
+
+        it('a new set should start', () => {
+          expect(match.currentSet).toEqual(2);
+        });
+
+        it('a new game should start', () => {
+          expect(match.gameScore).toEqual({
+            me: 0,
+            op: 0
+          });
+        });
+
+        xit('Game score for Last Set should be 7-6', () => {
+        });
+
+      });
     });
   });
 

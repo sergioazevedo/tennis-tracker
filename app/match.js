@@ -82,6 +82,11 @@ export default class Match {
 
   _tieBreakPointFor(who) {
     this.data.pointScore[who] += 1;
+    const totalPoints = this.data.pointScore.me + this.data.pointScore.op;
+    const pointsDiff = Math.abs(this.data.pointScore.me - this.data.pointScore.op);
+    if (pointsDiff >= 2 && totalPoints >= 7) {
+      this._gameFor(who);
+    }
   }
 
   _pointFor(who) {
@@ -139,9 +144,16 @@ export default class Match {
     return this.data.gameScore.me + this.data.gameScore.op;
   }
 
+  get _hadTieBreak() {
+    return this._gamesPlayed == 13;
+  }
+
   get _isSetFinished() {
     const gamesDiff = Math.abs(this.data.gameScore.me - this.data.gameScore.op);
-    const isNotTieBreak = !this.isTieBreak;
-    return isNotTieBreak && gamesDiff >= 2 && this._gamesPlayed >= 6;
+    if (this._hadTieBreak) {
+      return gamesDiff == 1;
+    } else {
+      return gamesDiff >= 2 && this._gamesPlayed >= 6;
+    }
   }
 }
