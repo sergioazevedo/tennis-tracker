@@ -87,4 +87,103 @@ describe('Match', () => {
       });
     });
   });
+
+  describe('Set (Win/Lose/Tie-Break) Scenarios', () => {
+    describe('Given a match with game score is 5 - 0 for me. When I won the next game. Then:', () => {
+      let match = givenAMatch({
+        setScore: {me: 0, op: 0},
+        gameScore: { me: 5, op: 0 },
+        pointScore: { me: 40, op: 0 }
+      });
+      //Set Point
+      match.pointForMe();
+
+      it('Set score should display that I won the last SET', () => {
+        expect(match.setScore).toEqual({
+          me: 1,
+          op: 0
+        });
+      });
+
+      it('a new set should start', () => {
+        expect(match.currentSet).toEqual(2);
+      });
+
+      it('a new game should start', () => {
+        expect(match.gameScore).toEqual({
+          me: 0,
+          op: 0
+        });
+      });
+    });
+
+    describe('Given a match with game score is 0 - 5 against me. When my Opponent won the next game. Then:', () => {
+      let match = givenAMatch({
+        setScore: { me: 0, op: 0 },
+        gameScore: { me: 0, op: 5 },
+        pointScore: { me: 0, op: 40 }
+      });
+      //Set Point
+      match.pointAgainstMe();
+
+      it('Set score should display that my Opponent won the last SET', () => {
+        expect(match.setScore).toEqual({
+          me: 0,
+          op: 1
+        });
+      });
+
+      it('a new set should start', () => {
+        expect(match.currentSet).toEqual(2);
+      });
+
+      it('a new game should start', () => {
+        expect(match.gameScore).toEqual({
+          me: 0,
+          op: 0
+        });
+      });
+    });
+
+    describe('Given a match with game score is 6 - 5 for me. When my Opponent won the next game. Then:', () => {
+      let match = givenAMatch({
+        setScore: { me: 0, op: 0 },
+        gameScore: { me: 6, op: 5 },
+        pointScore: { me: 0, op: 40 }
+      });
+      //Tie Break Point
+      match.pointAgainstMe();
+
+      it('Set score should not change (its a Tie Break)', () => {
+        expect(match.setScore).toEqual({
+          me: 0,
+          op: 0
+        });
+      });
+
+      it('a new set should not start (its a Tie Break)', () => {
+        expect(match.currentSet).toEqual(1);
+      });
+
+      it('the game score should be even 6 - 6', () => {
+        expect(match.gameScore).toEqual({
+          me: 6,
+          op: 6
+        });
+      });
+
+      it('a new game (tie break) should start', () => {
+        expect(match.pointScore).toEqual({
+          me: 0,
+          op: 0
+        });
+      });
+    });
+  });
+
+  describe('Tie-break Scenarios', () => {
+
+  });
+
+
 });

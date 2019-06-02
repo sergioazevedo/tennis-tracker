@@ -1,8 +1,10 @@
 
 export default class Match {
   BASE_GAME_DATA = {
-    currentSet: 1,
-    currentGame: 1,
+    setScore: {
+      me: 0,
+      op: 0,
+    },
     gameScore: {
       me: 0,
       op: 0,
@@ -30,6 +32,19 @@ export default class Match {
 
   get toObject() {
     return this.data;
+  }
+
+  get isTieBreak() {
+    return this.data.gameScore.me == 6 && this.data.gameScore.op == 6;
+  }
+
+  //tennis set not property set :)
+  get currentSet() {
+    return (this.data.setScore.me + this.data.setScore.op) + 1;
+  }
+
+  get setScore() {
+    return this.data.setScore;
   }
 
   get gameScore() {
@@ -95,22 +110,34 @@ export default class Match {
 
   _gameFor(who) {
     this.data.gameScore[who] += 1;
-    //new game
-    this.data.currentGame += 1;
+    this._startNewGame();
+    if (this._isSetFinished) {
+      this._setFor(who);
+      this._startNewSet();
+    }
+  }
+
+  _setFor(who) {
+    this.data.setScore[who] += 1;
+  }
+
+  _startNewSet() {
+    this.data.gameScore.me = 0;
+    this.data.gameScore.op = 0;
+  }
+
+  _startNewGame() {
     this.data.pointScore.me = 0;
     this.data.pointScore.op = 0;
   }
 
-  get gamesPlayed() {
+  get _gamesPlayed() {
     return this.data.gameScore.me + this.data.gameScore.op;
   }
 
-  get isTieBreak() {
-    return this.data.gameScore.me == 6 && this.data.gameScore.op == 6;
-  }
-
-  get isSetFinished() {
-    const gamesDiff = this.data.gameScore.me - this.data.gameScore.op
-    return Math.abs(gamesDiff) >= 1 && this.gamesPlayed >= 5;
+  get _isSetFinished() {
+    const gamesDiff = Math.abs(this.data.gameScore.me - this.data.gameScore.op);
+    const isNotTieBreak = !this.isTieBreak;
+    return isNotTieBreak && gamesDiff >= 2 && this._gamesPlayed >= 6;
   }
 }
