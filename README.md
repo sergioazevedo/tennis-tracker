@@ -3,8 +3,14 @@ A Simple Fitbit application for Tennis games.
 
 This app is for you, that is tired of to get lost on score during a tennis match. ( very much like me :]  )
 
-###Screenshoots
+### Screenshoots
 
-![](/../master/screenshot/1.main-screen.png?raw=true)
+![](screenshots/1.main-screen.png)
 
-![](/../master/screenshot/2.point-example.png?raw=true)
+![](screenshots/2.point-example.png)
+
+![](screenshots/3.deuce-example.png)
+
+![](screenshots/4.advantage-example.png)
+
+![](screenshots/5-tie-break-example.png)
