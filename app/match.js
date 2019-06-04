@@ -1,6 +1,7 @@
 import objectAssign from './object-assign'
 
 export default class Match {
+  MAX_UNDO_SIZE = 5;
   BASE_GAME_DATA = {
     setScore: {
       me: 0,
@@ -17,6 +18,7 @@ export default class Match {
   };
 
   constructor(receivedMatchData) {
+    this.lastStates = [];
     if (receivedMatchData != null) {
       this.data = objectAssign(
         {},
@@ -33,6 +35,10 @@ export default class Match {
 
   get toObject() {
     return this.data;
+  }
+
+  get canPerformUndo() {
+    return this.lastStates.length > 0;
   }
 
   get isTieBreak() {
@@ -63,11 +69,19 @@ export default class Match {
     return this.data.pointScore;
   }
 
+  performUndo() {
+    if (this.canPerformUndo) {
+      this.data = this.lastStates.pop();
+    }
+  }
+
   pointForMe() {
+    this._updateLastStates();
     this.isTieBreak ? this._tieBreakPointFor('me') : this._pointFor('me');
   }
 
   pointAgainstMe() {
+    this._updateLastStates();
     this.isTieBreak ? this._tieBreakPointFor('op') : this._pointFor('op');
   }
 
@@ -78,12 +92,20 @@ export default class Match {
     )
   }
 
-  inverseOf(who) {
+  _updateLastStates() {
+    const stateCopy = JSON.parse(JSON.stringify(this.data));
+    this.lastStates.push(stateCopy);
+    if (this.lastStates.length > this.MAX_UNDO_SIZE) {
+      const init = this.lastStates.length - this.MAX_UNDO_SIZE;
+      this.lastStates = this.lastStates.slice(init, this.lastStates.length);
+    }
+  }
+  _inverseOf(who) {
     return (who === 'me') ? 'op' : 'me';
   }
 
   _advantageFor(who) {
-    const other = this.inverseOf(who);
+    const other = this._inverseOf(who);
     this.data.pointScore[who] = 'AD';
     this.data.pointScore[other] = '';
   }

@@ -28,6 +28,7 @@ export default class GameUI {
       gameOpScore: document.getElementById("game-op-score"),
       myScoreButton: document.getElementById("my-score"),
       opScoreButton: document.getElementById("op-score"),
+      undoButton: document.getElementById("undo-button"),
     }
   }
 
@@ -39,6 +40,11 @@ export default class GameUI {
 
     this.components.opScoreButton.onclick = () => {
       this.match.pointAgainstMe();
+      this.updateView();
+    }
+
+    this.components.undoButton.onclick = () => {
+      this.match.performUndo();
       this.updateView();
     }
   }

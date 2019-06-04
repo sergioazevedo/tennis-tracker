@@ -262,6 +262,7 @@ describe('Match', () => {
         expect(match.currentSet).toEqual(2);
       });
     });
+
     describe('Given a match with set score is 0 - 1 and game score 4 - 5 against me. When I lost the next game. Then:', () => {
       let match = givenAMatch({
         setScore: { me: 0, op: 1 },
@@ -288,8 +289,41 @@ describe('Match', () => {
     });
   });
 
-  describe('BUGs', () => {
+  describe('Undo', () => {
+    it('During a match with point score 30 - 0 when my opponent socres a point and I accidentally tap the wrong button I should be able to undo my last action and fix the score', () => {
+      const match = givenAMatch({
+        pointScore: { me: 30, op: 0 }
+      });
+      match.pointForMe();
+      match.performUndo();
+      match.pointAgainstMe();
+      expect(match.pointScore).toEqual({
+        me: 30,
+        op: 15
+      });
+    });
 
+    it('Given a new match when the first game finishes after a deuce if I undo the last action point score should display AD - ""', () => {
+      const match = givenAMatch({
+        pointScore: { me: 0, op: 0 }
+      });
+      match.pointForMe();
+      match.pointAgainstMe();
+      match.pointForMe();
+      match.pointAgainstMe();
+      match.pointForMe();
+      match.pointAgainstMe();
+      match.pointForMe();
+      match.pointForMe();
+      match.performUndo();
+      expect(match.pointScore).toEqual({
+        me: 'AD',
+        op: ''
+      });
+    });
+  });
+
+  describe('BUGs', () => {
     it('given a 4-1 game score for me, when I win the game then Set should not end and the set score should be 5 - 1', () => {
       let match = givenAMatch({
         setScore: { me: 0, op: 0 },
@@ -328,6 +362,4 @@ describe('Match', () => {
       });
     });
   });
-
-
 });
