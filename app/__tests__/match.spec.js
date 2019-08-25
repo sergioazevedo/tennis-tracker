@@ -179,6 +179,41 @@ describe('Match', () => {
         });
       });
     });
+
+    describe('Given a match with game score is 5 - 6 for against me. When my Opponent won the next game. Then:', () => {
+      let match = givenAMatch({
+        setScore: { me: 0, op: 0 },
+        gameScore: { me: 5, op: 6 },
+        pointScore: { me: 0, op: 40 }
+      });
+      //Opponent Set Point
+      match.pointAgainstMe();
+
+      it('Set score should display that my Opponent won the last SET', () => {
+        expect(match.setScore).toEqual({
+          me: 0,
+          op: 1
+        });
+      });
+
+      it('a new set should start', () => {
+        expect(match.currentSet).toEqual(2);
+      });
+
+      it('the game score should be even 0 - 0', () => {
+        expect(match.gameScore).toEqual({
+          me: 0,
+          op: 0
+        });
+      });
+
+      it('a new game should start', () => {
+        expect(match.pointScore).toEqual({
+          me: 0,
+          op: 0
+        });
+      });
+    });
   });
 
   describe('Tie-break Scenarios', () => {
@@ -229,10 +264,6 @@ describe('Match', () => {
             op: 0
           });
         });
-
-        xit('Game score for Last Set should be 7-6', () => {
-        });
-
       });
     });
   });

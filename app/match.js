@@ -184,8 +184,8 @@ export default class Match {
     } else {
       return (
         gamesDiff >= 2 && (
-          this.gameScore.me === 6 ||
-          this.gameScore.op === 6
+          this.gameScore.me >= 6 ||
+          this.gameScore.op >= 6
         )
       );
     }
