@@ -1,10 +1,13 @@
 import document from "document";
+import {vibration} from "haptics";
 
 export default class GameUI {
   constructor(match) {
     this.match = match;
     this._bindComponents();
     this._bindEvents();
+    this.updateView();
+    this._setCallbacks();
   }
 
   updateView() {
@@ -29,6 +32,9 @@ export default class GameUI {
       myScoreButton: document.getElementById("my-score"),
       opScoreButton: document.getElementById("op-score"),
       undoButton: document.getElementById("undo-button"),
+      simpleModal: document.getElementById("simple-modal"),
+      simpleModalButton: document.getElementById("simple-modal-button"),
+      simpleModalText: document.getElementById("simple-modal-text"),
     }
   }
 
@@ -47,5 +53,19 @@ export default class GameUI {
       this.match.performUndo();
       this.updateView();
     }
+
+    this.components.simpleModalButton.onclick = () => {
+      this.components.simpleModal.style.display = "none";
+    }
+  }
+
+  _setCallbacks() {
+    this.match.onChangeSides = this._notifyChangeSides.bind(this);
+  }
+
+  _notifyChangeSides(){
+    vibration.start("ping");
+    this.components.simpleModal.style.display = "inline";
+    this.components.simpleModalText.text = "Change Sides";
   }
 }

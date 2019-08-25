@@ -1,4 +1,4 @@
-import objectAssign from './object-assign'
+import objectAssign from "./object-assign";
 
 export default class Match {
   MAX_UNDO_SIZE = 5;
@@ -18,6 +18,7 @@ export default class Match {
   };
 
   constructor(receivedMatchData) {
+    this.callbacks = {};
     this.lastStates = [];
     if (receivedMatchData != null) {
       this.data = objectAssign(
@@ -31,6 +32,10 @@ export default class Match {
         this.BASE_GAME_DATA
       );
     }
+  }
+
+  set onChangeSides(func) {
+    this.callbacks.onChangeSides = func;
   }
 
   get toObject() {
@@ -115,6 +120,11 @@ export default class Match {
     const pointsDiff = Math.abs(this.data.pointScore.me - this.data.pointScore.op);
     if (pointsDiff >= 2 && (this.pointScore.me >= 7 || this.pointScore.op >= 7)){
       this._gameFor(who);
+    } else {
+      const totalPoints = (this.data.pointScore.me + this.data.pointScore.op);
+      if (this.callbacks.onChangeSides && totalPoints % 6 === 0) {
+        this.callbacks.onChangeSides();
+      }
     }
   }
 
@@ -148,11 +158,11 @@ export default class Match {
 
   _gameFor(who) {
     this.data.gameScore[who] += 1;
-    this._startNewGame();
     if (this._isSetFinished) {
       this._setFor(who);
       this._startNewSet();
     }
+    this._startNewGame();
   }
 
   _setFor(who) {
@@ -167,6 +177,9 @@ export default class Match {
   _startNewGame() {
     this.data.pointScore.me = 0;
     this.data.pointScore.op = 0;
+    if (this.callbacks.onChangeSides && this._gamesPlayed % 2) {
+      this.callbacks.onChangeSides();
+    }
   }
 
   get _gamesPlayed() {

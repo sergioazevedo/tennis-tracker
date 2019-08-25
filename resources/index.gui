@@ -50,6 +50,14 @@
           <set href="#text" attributeName="y" to="12" />
         </use>
       </svg>
+      <!-- Simple Modal -->
+      <svg id="simple-modal">
+        <rect id="simple-modal-button">
+          <text id="simple-modal-text">
+            <!-- modal text -->
+          </text>
+        </rect>
+      </svg>
     </use>
 
     <!-- <use id="stats-view" href="#panoramaview-item">

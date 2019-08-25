@@ -103,3 +103,25 @@
   text-anchor: start;
   text-length: 5;
 }
+
+#simple-modal {
+  display: none;
+  viewport-fill: fb-black;
+}
+
+#simple-modal-button {
+  opacity: 0.8;
+  width: 100%;
+  height: 100%;
+  pointer-events: "visible";
+}
+
+#simple-modal-text {
+  font-size: 70;
+  font-family: Tungsten-Medium;
+  font-weight: bold;
+  text-anchor: middle;
+  text-length: 20;
+  x: 50%;
+  fill: fb-slate;
+}

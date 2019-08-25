@@ -7,8 +7,8 @@ import Appbit from "appbit";
 Appbit.appTimeoutEnabled = false;
 
 const currentMatch = new Match();
-const gameUI = new GameUI(currentMatch);
-gameUI.updateView();
+new GameUI(currentMatch);
+
 
 // gameUI.printGameData();
 // let container = document.getElementById("game-container");
