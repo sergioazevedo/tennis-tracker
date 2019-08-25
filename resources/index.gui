@@ -50,17 +50,16 @@
           <set href="#text" attributeName="y" to="12" />
         </use>
       </svg>
-      <!-- <rect class="footer"/> -->
     </use>
 
-    <use id="stats-view" href="#panoramaview-item">
+    <!-- <use id="stats-view" href="#panoramaview-item">
       <rect width="100%" height="100%" fill="grey" />
-    </use>
+    </use> -->
 
-    <use id="pagination-dots" href="#pagination-widget" y="2%">
+    <!-- <use id="pagination-dots" href="#pagination-widget" y="2%">
       <use href="#pagination-dot" />
       <use href="#pagination-dot" />
       <use href="#pagination-highlight-dot" />
-    </use>
+    </use> -->
   </use>
 </svg>
