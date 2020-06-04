@@ -4,12 +4,12 @@
   "private": true,
   "license": "UNLICENSED",
   "devDependencies": {
-    "@fitbit/sdk": "~3.1.2",
-    "@fitbit/sdk-cli": "^1.6.3",
-    "@fitbit/memory-profiler": "^1.6.3",
-    "@types/jest": "^24.0.18",
+    "@fitbit/memory-profiler": "^1.7.0",
+    "@fitbit/sdk": "~4.0.0",
+    "@fitbit/sdk-cli": "^1.7.0",
+    "@types/jest": "^24.9.1",
     "jest": "^24.9.0",
-    "ts-jest": "^24.0.2"
+    "ts-jest": "^24.3.0"
   },
   "fitbit": {
     "appUUID": "f979b0db-a03f-4c5a-8cb7-358577c965ec",
