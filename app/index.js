@@ -17,5 +17,3 @@ new GameUI(currentMatch);
 
 // // Set the selected index
 // container.value = 0; // jump to first slide
-
-

@@ -1,15 +1,15 @@
 {
   "name": "tennis-tracker",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "license": "UNLICENSED",
   "devDependencies": {
-    "@fitbit/memory-profiler": "^1.7.0",
-    "@fitbit/sdk": "~4.0.0",
-    "@fitbit/sdk-cli": "^1.7.0",
-    "@types/jest": "^24.9.1",
-    "jest": "^24.9.0",
-    "ts-jest": "^24.3.0"
+    "@fitbit/memory-profiler": "^1.7.3",
+    "@fitbit/sdk": "~5.0.1",
+    "@fitbit/sdk-cli": "^1.7.3",
+    "@types/jest": "^26.0.14",
+    "jest": "^26.4.2",
+    "ts-jest": "^26.4.1"
   },
   "fitbit": {
     "appUUID": "f979b0db-a03f-4c5a-8cb7-358577c965ec",
@@ -19,7 +19,8 @@
     "wipeColor": "#ffffff",
     "requestedPermissions": [],
     "buildTargets": [
-      "meson"
+      "atlas",
+      "vulcan"
     ],
     "i18n": {},
     "defaultLanguage": "en-US"

@@ -1,0 +1,11 @@
+<svg>
+  <defs>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="import" href="/mnt/sysassets/system_widget.defs" />
+    <!-- View Imports -->
+    <link rel="import" href="/mnt/sysassets/widgets/baseview_widget.defs" />
+    <!-- Button Imports -->
+    <link rel="import" href="/mnt/sysassets/widgets/text_button.defs" />
+    <!-- Text Imports -->
+  </defs>
+</svg>

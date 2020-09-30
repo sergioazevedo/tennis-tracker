@@ -1,7 +1,7 @@
 <svg class="screen">
-  <use id="game-container" class="container" href="#panoramaview">
+  <svg id="game-container" class="container">
     <!-- Game Screen -->
-    <use id="game-view" href="#panoramaview-item">
+    <svg id="game-view">
       <!-- HEADER init -->
       <svg class="header">
         <!-- Set No -->
@@ -45,10 +45,7 @@
       </svg>
       <!-- Undo Button -->
       <svg class="footer">
-        <use id="undo-button" href="#push-button" fill="fb-slate">
-          <set href="#text" attributeName="text-buffer" to="U n d o" />
-          <set href="#text" attributeName="y" to="12" />
-        </use>
+        <use id="undo-button" href="#text-button" class="text-button"/>
       </svg>
       <!-- Simple Modal -->
       <svg id="simple-modal">
@@ -58,16 +55,6 @@
           </text>
         </rect>
       </svg>
-    </use>
-
-    <!-- <use id="stats-view" href="#panoramaview-item">
-      <rect width="100%" height="100%" fill="grey" />
-    </use> -->
-
-    <!-- <use id="pagination-dots" href="#pagination-widget" y="2%">
-      <use href="#pagination-dot" />
-      <use href="#pagination-dot" />
-      <use href="#pagination-highlight-dot" />
-    </use> -->
-  </use>
+    </svg>
+  </svg>
 </svg>
