@@ -17,7 +17,11 @@
     "appDisplayName": "Tennis Tracker",
     "iconFile": "resources/icon.png",
     "wipeColor": "#ffffff",
-    "requestedPermissions": [],
+    "requestedPermissions": [
+      "access_exercise",
+      "access_heart_rate",
+      "access_activity"
+    ],
     "buildTargets": [
       "atlas",
       "vulcan"

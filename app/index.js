@@ -1,19 +1,25 @@
-// import document from "document";
 import GameUI from "./game-ui";
 import Match from "./match";
-import Appbit from "appbit";
+import permissionHelper from "./permission-helper";
+import { me as appbit } from "appbit";
+import exercise from "exercise";
 
-// prevents the app to be killed after 2 min of inactivity
-Appbit.appTimeoutEnabled = false;
+const runApp = (match) => {
+  // prevents the app to be killed after 2 min of inactivity
+  appbit.appTimeoutEnabled = false;
+
+  if (permissionHelper.exerciseAvailable) {
+    exercise.start("tennis", { gps: false });
+    // ensure that the exercise will be finished before the app closes
+    appbit.addEventListener('unload', () => {
+      if (exercise.state == "started") {
+        exercise.stop();
+      }
+    })
+  };
+
+  new GameUI(match);
+}
 
 const currentMatch = new Match();
-new GameUI(currentMatch);
-
-
-// gameUI.printGameData();
-// let container = document.getElementById("game-container");
-// // Get the selected index
-// let currentIndex = container.value;
-
-// // Set the selected index
-// container.value = 0; // jump to first slide
+runApp(currentMatch);

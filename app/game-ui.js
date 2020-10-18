@@ -1,5 +1,6 @@
 import document from "document";
-import {vibration} from "haptics";
+import { vibration } from "haptics";
+import Appbit from "appbit";
 
 export default class GameUI {
   constructor(match) {
